@@ -1,3 +1,4 @@
+// Package server implements the MCP time server functionality.
 package server
 
 import (
@@ -12,7 +13,10 @@ import (
 
 var timeRegex = regexp.MustCompile(`^([01]\d|2[0-3]):([0-5]\d)$`)
 
-func GetCurrentTime(params types.GetCurrentTimeParams) (*types.TimeResult, error) {
+// GetCurrentTime retrieves the current time for the specified timezone.
+func GetCurrentTime(
+	params types.GetCurrentTimeParams,
+) (*types.TimeResult, error) {
 	timezone := params.Timezone
 	if timezone == "" {
 		timezone = "UTC"
@@ -35,19 +39,25 @@ func GetCurrentTime(params types.GetCurrentTimeParams) (*types.TimeResult, error
 	return result, nil
 }
 
-func ConvertTime(params types.ConvertTimeParams) (*types.TimeConversionResult, error) {
+// ConvertTime converts a time from one timezone to another.
+func ConvertTime(
+	params types.ConvertTimeParams,
+) (*types.TimeConversionResult, error) {
 	if !timeRegex.MatchString(params.Time) {
-		return nil, fmt.Errorf("invalid time format: %s (expected HH:MM)", params.Time)
+		return nil, fmt.Errorf(
+			"invalid time format: %s (expected HH:MM)", params.Time)
 	}
 
 	sourceLoc, err := time.LoadLocation(params.SourceTimezone)
 	if err != nil {
-		return nil, fmt.Errorf("invalid source timezone: %s", params.SourceTimezone)
+		return nil, fmt.Errorf(
+			"invalid source timezone: %s", params.SourceTimezone)
 	}
 
 	targetLoc, err := time.LoadLocation(params.TargetTimezone)
 	if err != nil {
-		return nil, fmt.Errorf("invalid target timezone: %s", params.TargetTimezone)
+		return nil, fmt.Errorf(
+			"invalid target timezone: %s", params.TargetTimezone)
 	}
 
 	timeParts := strings.Split(params.Time, ":")
@@ -55,7 +65,8 @@ func ConvertTime(params types.ConvertTimeParams) (*types.TimeConversionResult, e
 	minute, _ := strconv.Atoi(timeParts[1])
 
 	now := time.Now()
-	sourceTime := time.Date(now.Year(), now.Month(), now.Day(), hour, minute, 0, 0, sourceLoc)
+	sourceTime := time.Date(
+		now.Year(), now.Month(), now.Day(), hour, minute, 0, 0, sourceLoc)
 	targetTime := sourceTime.In(targetLoc)
 
 	sourceInfo := types.TimezoneInfo{
@@ -90,21 +101,22 @@ func formatOffset(t time.Time) string {
 	_, offset := t.Zone()
 	hours := offset / 3600
 	minutes := (offset % 3600) / 60
-	
+
 	if offset >= 0 {
 		return fmt.Sprintf("+%02d:%02d", hours, minutes)
 	}
+
 	return fmt.Sprintf("-%02d:%02d", -hours, -minutes)
 }
 
 func formatTimeDifference(diffSeconds int) string {
 	hours := diffSeconds / 3600
 	minutes := (diffSeconds % 3600) / 60
-	
+
 	if diffSeconds == 0 {
 		return "0 hours"
 	}
-	
+
 	var parts []string
 	if hours != 0 {
 		if hours == 1 || hours == -1 {
@@ -113,7 +125,7 @@ func formatTimeDifference(diffSeconds int) string {
 			parts = append(parts, fmt.Sprintf("%d hours", hours))
 		}
 	}
-	
+
 	if minutes != 0 {
 		if minutes == 1 || minutes == -1 {
 			parts = append(parts, fmt.Sprintf("%d minute", minutes))
@@ -121,10 +133,10 @@ func formatTimeDifference(diffSeconds int) string {
 			parts = append(parts, fmt.Sprintf("%d minutes", minutes))
 		}
 	}
-	
+
 	if len(parts) == 0 {
 		return "0 hours"
 	}
-	
+
 	return strings.Join(parts, " ")
 }

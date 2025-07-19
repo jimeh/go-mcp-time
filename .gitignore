@@ -19,3 +19,9 @@ go.work
 
 # Compiled binary
 time-server
+
+# Build and tools directory
+bin/
+
+# Coverage reports
+coverage.html
