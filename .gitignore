@@ -19,6 +19,7 @@ go.work
 
 # Compiled binary
 time-server
+go-mcp-time
 
 # Build and tools directory
 bin/

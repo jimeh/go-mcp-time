@@ -1,4 +1,4 @@
-module github.com/jimeh/go-time-mcp
+module github.com/jimeh/go-mcp-time
 
 go 1.24.5
 
