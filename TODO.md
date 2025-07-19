@@ -65,42 +65,52 @@ Create a memory and CPU efficient Time MCP server in Go as a drop-in replacement
 
 ### Phase 1: Project Structure Setup
 1. Initialize Go module with `go mod init`
-2. Create basic directory structure:
+2. Create basic directory structure with importable packages:
    ```
-   ├── main.go
-   ├── internal/
-   │   ├── server/
-   │   │   ├── server.go
-   │   │   └── handlers.go
-   │   └── types/
-   │       └── time.go
+   ├── main.go              (main package - CLI entry point)
+   ├── server/              (importable server package)
+   │   ├── server.go
+   │   └── handlers.go
+   ├── types/               (importable types package)
+   │   └── time.go
    ├── go.mod
    ├── go.sum
    ├── Dockerfile
    └── README.md
    ```
 
+**Package Design Philosophy:**
+- Root contains `main` package for CLI functionality
+- All implementation logic in named packages (`server`, `types`)
+- Packages are importable by other Go projects
+- No `internal` directory to ensure maximum reusability
+- Clean separation between CLI and library functionality
+
 ### Phase 2: Core Implementation
-1. **Define data structures** (`internal/types/time.go`):
+1. **Define data structures** (`types/time.go`):
    - `TimeResult` struct for `get_current_time` response
    - `TimeConversionResult` struct for `convert_time` response
    - Input parameter structs for type safety
+   - Exported types for use in other Go projects
 
-2. **Implement MCP server** (`internal/server/server.go`):
+2. **Implement MCP server** (`server/server.go`):
    - Initialize mcp-go server with stdio transport
    - Register MCP tools with proper metadata
    - Handle server lifecycle and graceful shutdown
+   - Exported API for embedding in other applications
 
-3. **Implement time handlers** (`internal/server/handlers.go`):
+3. **Implement time handlers** (`server/handlers.go`):
    - `GetCurrentTime()` function with timezone validation
    - `ConvertTime()` function with time parsing and conversion
    - Error handling for invalid inputs
    - Timezone validation using Go's time package
+   - Exported functions for reuse in other projects
 
 4. **Main entry point** (`main.go`):
    - Command-line argument parsing (local timezone override)
-   - Server initialization and startup
+   - Server initialization and startup using server package
    - Graceful error handling and logging
+   - Minimal main package focused on CLI functionality
 
 ### Phase 3: Docker Containerization
 1. **Multi-stage Dockerfile**:
