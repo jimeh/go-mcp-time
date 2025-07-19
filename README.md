@@ -43,29 +43,68 @@ The server provides the following MCP tools:
 - **get_current_time**: Get current time in a specific timezone
 - **convert_time**: Convert time between different timezones
 
-### Example MCP Client Usage
+### Configuration Examples
+
+#### Claude Code
+
+Add to your MCP settings in `~/.config/claude-code/mcp_servers.json`:
 
 ```json
 {
-  "method": "tools/call",
-  "params": {
-    "name": "get_current_time",
-    "arguments": {
-      "timezone": "Europe/London"
+  "mcpServers": {
+    "go-mcp-time": {
+      "command": "go-mcp-time",
+      "args": ["-local-timezone=UTC"]
     }
   }
 }
 ```
 
+#### Claude Desktop
+
+Add to your configuration file:
+
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
 ```json
 {
-  "method": "tools/call",
-  "params": {
-    "name": "convert_time", 
-    "arguments": {
-      "time": "14:30",
-      "source_timezone": "UTC",
-      "target_timezone": "Asia/Tokyo"
+  "mcpServers": {
+    "go-mcp-time": {
+      "command": "go-mcp-time",
+      "args": ["-local-timezone=UTC"]
+    }
+  }
+}
+```
+
+#### Cursor
+
+Add to your MCP configuration in `.cursorrules` or settings:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "go-mcp-time": {
+        "command": "go-mcp-time",
+        "args": ["-local-timezone=UTC"]
+      }
+    }
+  }
+}
+```
+
+#### VSCode (with MCP extension)
+
+Add to your `settings.json`:
+
+```json
+{
+  "mcp.servers": {
+    "go-mcp-time": {
+      "command": "go-mcp-time",
+      "args": ["-local-timezone=UTC"]
     }
   }
 }
