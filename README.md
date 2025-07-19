@@ -1,27 +1,27 @@
-# go-time-mcp
-
 <div align="center">
+
+# go-mcp-time
 
 **A Model Context Protocol (MCP) server for time operations.**
 
-[![Latest Release](https://img.shields.io/github/release/jimeh/go-time-mcp.svg)](https://github.com/jimeh/go-time-mcp/releases)
-[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/jimeh/go-time-mcp)
-[![GitHub Issues](https://img.shields.io/github/issues/jimeh/go-time-mcp.svg)](https://github.com/jimeh/go-time-mcp/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/jimeh/go-time-mcp.svg)](https://github.com/jimeh/go-time-mcp/pulls)
-[![License](https://img.shields.io/github/license/jimeh/go-time-mcp.svg)](https://github.com/jimeh/go-time-mcp/blob/main/LICENSE)
+[![Latest Release](https://img.shields.io/github/release/jimeh/go-mcp-time.svg)](https://github.com/jimeh/go-mcp-time/releases)
+[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/jimeh/go-mcp-time)
+[![GitHub Issues](https://img.shields.io/github/issues/jimeh/go-mcp-time.svg)](https://github.com/jimeh/go-mcp-time/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/jimeh/go-mcp-time.svg)](https://github.com/jimeh/go-mcp-time/pulls)
+[![License](https://img.shields.io/github/license/jimeh/go-mcp-time.svg)](https://github.com/jimeh/go-mcp-time/blob/main/LICENSE)
 
 </div>
 
 ## Description
 
-go-time-mcp is a Model Context Protocol (MCP) server that provides time-related operations for AI assistants and other MCP clients. It offers functionality for getting current time in different timezones and converting time between timezones.
+go-mcp-time is a Model Context Protocol (MCP) server that provides time-related operations for AI assistants and other MCP clients. It offers functionality for getting current time in different timezones and converting time between timezones.
 
 The server implements the MCP specification, allowing AI assistants to query time information across various IANA timezone names. It provides a simple and flexible solution for time operations within the MCP ecosystem.
 
 ## Installation
 
 ```bash
-go install github.com/jimeh/go-time-mcp@latest
+go install github.com/jimeh/go-mcp-time@latest
 ```
 
 ## Usage
@@ -30,10 +30,10 @@ go install github.com/jimeh/go-time-mcp@latest
 
 ```bash
 # Use system default timezone
-go-time-mcp
+go-mcp-time
 
 # Override local timezone
-go-time-mcp -local-timezone="America/New_York"
+go-mcp-time -local-timezone="America/New_York"
 ```
 
 ### Available Tools
@@ -73,8 +73,8 @@ The server provides the following MCP tools:
 
 ## Documentation
 
-Full documentation is available at [pkg.go.dev](https://pkg.go.dev/github.com/jimeh/go-time-mcp).
+Full documentation is available at [pkg.go.dev](https://pkg.go.dev/github.com/jimeh/go-mcp-time).
 
 ## License
 
-[MIT License](https://github.com/jimeh/go-time-mcp/blob/main/LICENSE)
+[MIT License](https://github.com/jimeh/go-mcp-time/blob/main/LICENSE)
