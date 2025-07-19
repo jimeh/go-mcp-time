@@ -38,18 +38,17 @@ Create a memory and CPU efficient Time MCP server in Go as a drop-in replacement
 ## Go Package Selection
 
 ### MCP Protocol Library
-**Primary Choice**: `github.com/metoro-io/mcp-golang`
-- **Rationale**: Unofficial but well-designed, type-safe implementation
+**Primary Choice**: `github.com/mark3labs/mcp-go`
+- **Rationale**: Recommended by trusted community members, solid implementation
 - **Features**: 
-  - Low boilerplate with automatic endpoint generation
-  - Type-safe tool arguments using Go structs
-  - Multiple transport options (stdio, HTTP)
-  - Modular architecture
-  - Active community support
+  - Handles MCP protocol details effectively
+  - Clean API design for Go implementations
+  - Active development and maintenance
+  - Good community feedback and adoption
 
-**Alternative**: `github.com/mark3labs/mcp-go`
-- **Rationale**: Another solid option, handles protocol details well
-- **Note**: Consider if mcp-golang doesn't meet needs
+**Alternative**: `github.com/metoro-io/mcp-golang`
+- **Rationale**: Well-designed with type-safe implementation
+- **Note**: Consider if mcp-go doesn't meet needs
 
 ### Testing Framework
 **Choice**: `github.com/stretchr/testify/assert`
@@ -88,7 +87,7 @@ Create a memory and CPU efficient Time MCP server in Go as a drop-in replacement
    - Input parameter structs for type safety
 
 2. **Implement MCP server** (`internal/server/server.go`):
-   - Initialize mcp-golang server with stdio transport
+   - Initialize mcp-go server with stdio transport
    - Register MCP tools with proper metadata
    - Handle server lifecycle and graceful shutdown
 
@@ -190,7 +189,7 @@ ENTRYPOINT ["/time-server"]
 ## Next Steps
 
 1. Initialize Go module and basic project structure
-2. Implement core MCP server with mcp-golang
+2. Implement core MCP server with mcp-go
 3. Add time conversion functionality with proper timezone handling
 4. Create comprehensive test suite
 5. Build optimized Docker container
