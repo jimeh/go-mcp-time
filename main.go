@@ -1,3 +1,4 @@
+// Package main implements a Go Time MCP server for time conversion operations.
 package main
 
 import (
@@ -15,7 +16,8 @@ import (
 
 func main() {
 	var localTimezone string
-	flag.StringVar(&localTimezone, "local-timezone", "", "Override local timezone (IANA timezone name)")
+	flag.StringVar(&localTimezone, "local-timezone", "",
+		"Override local timezone (IANA timezone name)")
 	flag.Parse()
 
 	if localTimezone == "" {
@@ -40,11 +42,12 @@ func main() {
 
 	go func() {
 		<-sigChan
-		fmt.Fprintf(os.Stderr, "\nReceived interrupt signal, shutting down...\n")
+		fmt.Fprintf(os.Stderr,
+			"\nReceived interrupt signal, shutting down...\n")
 		cancel()
 	}()
 
 	if err := timeServer.Serve(ctx); err != nil {
-		log.Fatalf("Server error: %v", err)
+		log.Printf("Server error: %v", err)
 	}
 }

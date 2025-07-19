@@ -1,0 +1,79 @@
+run:
+  modules-download-mode: readonly
+  allow-parallel-runners: true
+
+linters:
+  disable-all: true
+  enable:
+    - asciicheck
+    - bodyclose
+    - durationcheck
+    - errcheck
+    - errorlint
+    - exhaustive
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - goprintffuncname
+    - gosec
+    - govet
+    - importas
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - nilerr
+    - nlreturn
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - tparallel
+    - unconvert
+    - unparam
+    - unused
+    - wastedassign
+    - whitespace
+
+linters-settings:
+  funlen:
+    lines: 110
+    statements: 150
+  goconst:
+    min-occurrences: 5
+  gocyclo:
+    min-complexity: 20
+  govet:
+    disable:
+      - fieldalignment
+    enable-all: true
+  lll:
+    line-length: 80
+    tab-width: 4
+  misspell:
+    locale: US
+
+issues:
+  exclude-use-default: false
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - funlen
+        - lll
+    - source: "^//go:generate "
+      linters:
+        - lll
+    - source: "`json:"
+      linters:
+        - lll
+    - source: "`xml:"
+      linters:
+        - lll
