@@ -26,15 +26,21 @@ go install github.com/jimeh/go-mcp-time@latest
 
 ## Usage
 
-### Running the Server
+Start the MCP server using the command line:
 
 ```bash
 # Use system default timezone
 go-mcp-time
 
-# Override local timezone
+# Override local timezone (accepts IANA timezone names)
 go-mcp-time -local-timezone="America/New_York"
+go-mcp-time -local-timezone="Europe/London"
+go-mcp-time -local-timezone="Asia/Tokyo"
 ```
+
+### Command Line Options
+
+- `-local-timezone`: Override the local timezone (default: system timezone or UTC)
 
 ### Available Tools
 
@@ -42,73 +48,6 @@ The server provides the following MCP tools:
 
 - **get_current_time**: Get current time in a specific timezone
 - **convert_time**: Convert time between different timezones
-
-### Configuration Examples
-
-#### Claude Code
-
-Add to your MCP settings in `~/.config/claude-code/mcp_servers.json`:
-
-```json
-{
-  "mcpServers": {
-    "go-mcp-time": {
-      "command": "go-mcp-time",
-      "args": ["-local-timezone=UTC"]
-    }
-  }
-}
-```
-
-#### Claude Desktop
-
-Add to your configuration file:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "go-mcp-time": {
-      "command": "go-mcp-time",
-      "args": ["-local-timezone=UTC"]
-    }
-  }
-}
-```
-
-#### Cursor
-
-Add to your MCP configuration in `.cursorrules` or settings:
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "go-mcp-time": {
-        "command": "go-mcp-time",
-        "args": ["-local-timezone=UTC"]
-      }
-    }
-  }
-}
-```
-
-#### VSCode (with MCP extension)
-
-Add to your `settings.json`:
-
-```json
-{
-  "mcp.servers": {
-    "go-mcp-time": {
-      "command": "go-mcp-time",
-      "args": ["-local-timezone=UTC"]
-    }
-  }
-}
-```
 
 ## Documentation
 
