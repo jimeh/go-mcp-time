@@ -1,3 +1,4 @@
+version: 2
 before:
   hooks:
     - go mod tidy
@@ -22,6 +23,8 @@ builds:
       - "amd64"
       - "arm"
       - "arm64"
+    go386:
+      - "sse2"
     goamd64:
       - "v1"
     goarm64:
@@ -43,19 +46,22 @@ checksum:
   name_template: "checksums.txt"
 
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 
 changelog:
   disable: true
 
 archives:
   - id: bin
-    format: binary
+    formats:
+      - binary
   - id: tar
-    format: tar.gz
+    formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
     name_template: |-
       {{ .ProjectName }}-{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
     wrap_in_directory: true

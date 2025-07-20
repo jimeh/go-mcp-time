@@ -43,6 +43,23 @@ jobs:
       - name: Run tests
         run: go test -v -count=1 -race ./...
 
+  goreleaser-check:
+    name: GoReleaser Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        with:
+          go-version-file: go.mod
+      - name: Check GoReleaser config
+        uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
+        with:
+          distribution: goreleaser
+          version: '~> v2'
+          args: check
+
   release-please:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -60,7 +77,7 @@ jobs:
           private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
 
   publish-release:
-    needs: [release-please, lint, tidy, test]
+    needs: [release-please, lint, tidy, test, goreleaser-check]
     if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-latest
     permissions:
