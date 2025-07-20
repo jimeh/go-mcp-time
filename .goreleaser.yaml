@@ -1,0 +1,64 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
+    goos:
+      - "linux"
+      - "darwin"
+      - "freebsd"
+      - "openbsd"
+      - "netbsd"
+      - "windows"
+    goarch:
+      - "386"
+      - "amd64"
+      - "arm"
+      - "arm64"
+    goamd64:
+      - "v1"
+    goarm64:
+      - "v8.0"
+    goarm:
+      - "6"
+      - "7"
+    ignore:
+      # Windows doesn't support 32-bit ARM
+      - goos: windows
+        goarch: arm
+      # Darwin (macOS) doesn't support 32-bit architectures anymore
+      - goos: darwin
+        goarch: "386"
+      - goos: darwin
+        goarch: arm
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+changelog:
+  disable: true
+
+archives:
+  - id: bin
+    format: binary
+  - id: tar
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    name_template: |-
+      {{ .ProjectName }}-{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
+    wrap_in_directory: true
+    files:
+      - README.md
+      - LICENSE
