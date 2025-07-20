@@ -1,0 +1,39 @@
+FROM alpine:3 AS builder
+
+ARG TARGETPLATFORM
+RUN apk --no-cache add tzdata
+
+# Copy in whole dist directory produced by goreleaser, and move the correct
+# binary for the current target platform into the root of the image.
+COPY dist/ /tmp/
+RUN set -x \
+    && case "$TARGETPLATFORM" in \
+    "linux/amd64") \
+    mv /tmp/go-mcp-time_linux_amd64_v1/go-mcp-time /go-mcp-time \
+    ;; \
+    "linux/arm64") \
+    mv /tmp/go-mcp-time_linux_arm64_v8.0/go-mcp-time /go-mcp-time \
+    ;; \
+    "linux/arm/v6") \
+    mv /tmp/go-mcp-time_linux_arm_6/go-mcp-time /go-mcp-time \
+    ;; \
+    "linux/arm/v7") \
+    mv /tmp/go-mcp-time_linux_arm_7/go-mcp-time /go-mcp-time \
+    ;; \
+    "linux/386") \
+    mv /tmp/go-mcp-time_linux_386/go-mcp-time /go-mcp-time \
+    ;; \
+    *) \
+    echo "Unsupported platform: $TARGETPLATFORM" >&2; \
+    exit 1 \
+    ;; \
+    esac \
+    && chmod +x /go-mcp-time
+
+FROM scratch
+
+# Copy in the zoneinfo directory so the binary can parse IANA timezone names.
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+COPY --from=builder /go-mcp-time /go-mcp-time
+
+ENTRYPOINT ["/go-mcp-time"]
