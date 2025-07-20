@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/jimeh/go-mcp-time/compare/v0.0.1...v0.0.2) (2025-07-20)
+
+
+### Bug Fixes
+
+* **ci/release:** fix goreleaser config and Dockerfile.release ([#10](https://github.com/jimeh/go-mcp-time/issues/10)) ([1234cb7](https://github.com/jimeh/go-mcp-time/commit/1234cb7b9c3b5658149f1c6f92204bc6d9435e39))
+
 ## 0.0.1 (2025-07-20)
 
 
