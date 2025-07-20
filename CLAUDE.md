@@ -60,6 +60,9 @@ go-mcp-time
 
 # Override local timezone
 go-mcp-time -local-timezone="America/New_York"
+
+# Check version
+go-mcp-time -version
 ```
 
 ## Release Management
