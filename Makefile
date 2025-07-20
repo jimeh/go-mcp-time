@@ -45,7 +45,7 @@ endef
 
 $(eval $(call tool,gofumpt,mvdan.cc/gofumpt@latest))
 $(eval $(call tool,goimports,golang.org/x/tools/cmd/goimports@latest))
-$(eval $(call tool,golangci-lint,github.com/golangci/golangci-lint/cmd/golangci-lint@latest))
+$(eval $(call tool,golangci-lint,github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest))
 
 .PHONY: tools
 tools: $(TOOLS)
@@ -115,6 +115,25 @@ build:
 install:
 	go install .
 
+.SILENT: check-tidy
+.PHONY: check-tidy
+check-tidy:
+	cp go.mod go.mod.tidy-check
+	cp go.sum go.sum.tidy-check
+	go mod tidy
+	( \
+		diff go.mod go.mod.tidy-check && \
+		diff go.sum go.sum.tidy-check && \
+		rm -f go.mod go.sum && \
+		mv go.mod.tidy-check go.mod && \
+		mv go.sum.tidy-check go.sum \
+	) || ( \
+		rm -f go.mod go.sum && \
+		mv go.mod.tidy-check go.mod && \
+		mv go.sum.tidy-check go.sum; \
+		exit 1 \
+	)
+
 .PHONY: help
 help:
 	@echo "Available targets:"
@@ -132,4 +151,5 @@ help:
 	@echo "  tools         Install development tools"
 	@echo "  deps          Download dependencies"
 	@echo "  deps-update   Update dependencies"
+	@echo "  check-tidy    Check if go.mod and go.sum are tidy"
 	@echo "  help          Show this help message"
