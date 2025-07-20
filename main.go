@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/jimeh/go-time-mcp/server"
+	"github.com/jimeh/go-mcp-time/server"
 )
 
 func main() {

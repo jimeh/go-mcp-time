@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jimeh/go-time-mcp/types"
+	"github.com/jimeh/go-mcp-time/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

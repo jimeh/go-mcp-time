@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jimeh/go-time-mcp/types"
+	"github.com/jimeh/go-mcp-time/types"
 )
 
 var timeRegex = regexp.MustCompile(`^([01]\d|2[0-3]):([0-5]\d)$`)
