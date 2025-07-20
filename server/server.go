@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/jimeh/go-time-mcp/types"
+	"github.com/jimeh/go-mcp-time/types"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
