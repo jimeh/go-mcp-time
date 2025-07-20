@@ -21,7 +21,7 @@ RUN set -x \
     mv /tmp/go-mcp-time_linux_arm_7/go-mcp-time /go-mcp-time \
     ;; \
     "linux/386") \
-    mv /tmp/go-mcp-time_linux_386/go-mcp-time /go-mcp-time \
+    mv /tmp/go-mcp-time_linux_386_sse2/go-mcp-time /go-mcp-time \
     ;; \
     *) \
     echo "Unsupported platform: $TARGETPLATFORM" >&2; \
