@@ -26,6 +26,8 @@ go install github.com/jimeh/go-mcp-time@latest
 
 ## Usage
 
+### Using Go Binary
+
 Start the MCP server using the command line:
 
 ```bash
@@ -37,6 +39,24 @@ go-mcp-time -local-timezone="America/New_York"
 go-mcp-time -local-timezone="Europe/London"
 go-mcp-time -local-timezone="Asia/Tokyo"
 ```
+
+### Using Docker
+
+A container image is available at `ghcr.io/jimeh/go-mcp-time`. The image is built from scratch and includes timezone data for IANA timezone support. When running via Docker, the server defaults to UTC timezone.
+
+```bash
+# Use default UTC timezone
+docker run --rm ghcr.io/jimeh/go-mcp-time
+
+# Set timezone using TZ environment variable
+docker run --rm -e TZ="America/New_York" ghcr.io/jimeh/go-mcp-time
+docker run --rm -e TZ="Europe/London" ghcr.io/jimeh/go-mcp-time
+
+# Run with specific tag/version
+docker run --rm -e TZ="Asia/Tokyo" ghcr.io/jimeh/go-mcp-time:v0.0.2
+```
+
+The container exposes the MCP server on stdout/stdin for communication with MCP clients.
 
 ### Command Line Options
 
