@@ -14,9 +14,14 @@
 
 ## Description
 
-go-mcp-time is a Model Context Protocol (MCP) server that provides time-related operations for AI assistants and other MCP clients. It offers functionality for getting current time in different timezones and converting time between timezones.
+go-mcp-time is a Model Context Protocol (MCP) server that provides time-related
+operations for AI assistants and other MCP clients. It offers functionality for
+getting current time in different timezones and converting time between
+timezones.
 
-The server implements the MCP specification, allowing AI assistants to query time information across various IANA timezone names. It provides a simple and flexible solution for time operations within the MCP ecosystem.
+The server implements the MCP specification, allowing AI assistants to query
+time information across various IANA timezone names. It provides a simple and
+flexible solution for time operations within the MCP ecosystem.
 
 ## Installation
 
@@ -42,7 +47,9 @@ go-mcp-time -local-timezone="Asia/Tokyo"
 
 ### Using Docker
 
-A container image is available at `ghcr.io/jimeh/go-mcp-time`. The image is built from scratch and includes timezone data for IANA timezone support. When running via Docker, the server defaults to UTC timezone.
+A container image is available at `ghcr.io/jimeh/go-mcp-time`. The image is
+built from scratch and includes timezone data for IANA timezone support. When
+running via Docker, the server defaults to UTC timezone.
 
 ```bash
 # Use default UTC timezone
@@ -56,11 +63,13 @@ docker run --rm -e TZ="Europe/London" ghcr.io/jimeh/go-mcp-time
 docker run --rm -e TZ="Asia/Tokyo" ghcr.io/jimeh/go-mcp-time:v0.0.2
 ```
 
-The container exposes the MCP server on stdout/stdin for communication with MCP clients.
+The container exposes the MCP server on stdout/stdin for communication with MCP
+clients.
 
 ### Command Line Options
 
-- `-local-timezone`: Override the local timezone (default: system timezone or UTC)
+- `-local-timezone`: Override the local timezone (default: system timezone or
+  UTC)
 
 ### Available Tools
 
@@ -71,7 +80,8 @@ The server provides the following MCP tools:
 
 ## Documentation
 
-Full documentation is available at [pkg.go.dev](https://pkg.go.dev/github.com/jimeh/go-mcp-time).
+Full documentation is available at
+[pkg.go.dev](https://pkg.go.dev/github.com/jimeh/go-mcp-time).
 
 ## License
 
